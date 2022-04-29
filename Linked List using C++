@@ -1,0 +1,77 @@
+//Linked List
+#include <iostream>
+using namespace std;
+struct Node {
+   int DATA;
+   struct Node* NEXT;
+   };
+Node* deleteFirstNode(struct Node* Head)
+{
+   if (Head == NULL)
+   return NULL;
+   Node* tempNode = Head;
+   Head = Head->NEXT;
+   delete tempNode;
+   return Head;
+}
+Node* removeLastNode(struct Node* Head)
+{
+   if (Head == NULL)
+   return NULL;
+ 
+   if (Head->NEXT == NULL) 
+   {
+      delete Head;
+      return NULL;
+   }
+Node* second_last = Head;
+while (second_last->NEXT->NEXT != NULL)
+second_last = second_last->NEXT;
+delete (second_last->NEXT);
+second_last->NEXT = NULL;
+return Head;
+}
+void push(struct Node** Head, int new_data)
+{
+   struct Node* newNode = new Node;
+   newNode->DATA = new_data;
+   newNode->NEXT = (*Head);
+   (*Head) = newNode;
+}
+int main()
+{
+   Node* Head = NULL;
+   push(&Head, 23);
+   push(&Head, 24);
+   push(&Head, 25);
+   push(&Head, 26);
+   push(&Head, 27);
+   push(&Head, 28);
+   push(&Head, 29);
+   push(&Head, 30);
+         Node* temp;
+   cout<<"Here is a Linked List:"<<endl;
+   cout<<"Linked list is Created "<<endl; for (temp = Head; temp != NULL; temp = temp->NEXT)
+   cout << temp->DATA << "->";
+   if(temp == NULL)
+   cout<<"NULL"<<endl;
+   Head = deleteFirstNode(Head);
+   cout<<"Linked list After deletion Head Node"<<endl; for (temp = Head; temp != NULL; temp = temp->NEXT)
+   cout << temp->DATA << "->";
+   if(temp == NULL)
+   cout<<"NULL"<<endl;
+   Head = removeLastNode(Head);
+   cout<<"Linked list After deletion Last Node"<<endl; for (temp = Head; temp != NULL; temp = temp->NEXT)
+   cout << temp->DATA << "-->";
+   if(temp == NULL)
+   cout<<"NULL";
+   return 0;
+}
+//Output-
+//Here is a Linked List:
+//Linked list is Created 
+//30->29->28->27->26->25->24->23->NULL
+//Linked list After deletion Head Node
+//29->28->27->26->25->24->23->NULL
+//Linked list After deletion Last Node
+//29-->28-->27-->26-->25-->24-->NULL
