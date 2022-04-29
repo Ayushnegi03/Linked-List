@@ -1,0 +1,84 @@
+#Linked List
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+class LinkedList:
+    def __init__(self):
+        self.head = None
+    def insertAtBeginning(self, New_Data):
+        New_Node = Node(New_Data)
+        New_Node.next = self.head
+        self.head = New_Node
+    def insertAfter(self, Prev_Node, New_Data):
+        if Prev_Node is None:
+            print("The given previous node must inLinkedList.")
+            return
+        New_Node = Node(New_Data)
+        New_Node.next = Prev_Node.next
+        Prev_Node.next = New_Node
+    def insertAtEnd(self, New_Data):
+        New_Node = Node(New_Data)
+        if self.head is None:
+            self.head = New_Node
+            return
+        last = self.head
+        while (last.next):
+            last = last.next
+        last.next = New_Node
+    def deleteNode(self, POS):
+        if self.head is None:
+            return
+        temp = self.head
+        if POS == 0:
+            self.head = temp.next
+            temp = None
+            return
+        for i in range(POS - 1):
+            temp = temp.next
+            if temp is None:
+                break
+        if temp is None:
+            return
+        if temp.next is None:
+            return
+        next = temp.next.next
+        temp.next = None
+        temp.next = next
+    def Search(self, key):
+        current = self.head
+        while current is not None:
+            if current.data == key:
+                return True
+            current = current.next
+        return False
+    def PrintList(self):
+        temp = self.head
+        while (temp):
+            print(str(temp.data) + " ", end="")
+            temp = temp.next
+if __name__ == '__main__':
+    llist = LinkedList()
+    llist.insertAtEnd(1)
+    llist.insertAtBeginning(2)
+    llist.insertAtBeginning(3)
+    llist.insertAtEnd(4)
+    llist.insertAfter(llist.head.next, 5)
+    print('linked list:')
+    llist.PrintList()
+    print("\nAfter deleting an element:")
+    llist.deleteNode(3)
+    llist.PrintList()
+    print()
+    item_to_find = 3
+    print("Searching element is",item_to_find);
+    if llist.Search(item_to_find):
+        print(str(item_to_find) + " is found")
+    else:
+        print(str(item_to_find) + " is not found")
+#Output-
+#linked list:
+#3 2 5 1 4 
+#After deleting an element:3 2 5 4 
+#Searching element is 3
+#3 is found
