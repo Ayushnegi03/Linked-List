@@ -1,4 +1,4 @@
-//Linked List
+//Linked List.
 #include <iostream>
 using namespace std;
 struct Node {
